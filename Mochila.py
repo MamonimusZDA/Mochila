@@ -1,71 +1,66 @@
-# Programa para Maximisar el las convinaciones de pesos para una mochila de 40kg.
-
 from pstats import SortKey
-import random
 
-#Definimos el maximo de peso de la mochila en un rango aleatorio
-#MAXIMO = random.randint ( 1, 200 ) 
+from random import \
+        uniform as _uniform,\
+        randint as _randint
 
 MAXIMO = 40
-
-#NUM_DE_OBJETOS = random.randint ( 2, 50 ) 
 NUM_DE_OBJETOS = 20
 
-def crearobjetos ( ) :
+def crearObjetos ( ) :
     opciones_objetos = list ( )
-    i = 0
-    while ( i < NUM_DE_OBJETOS ) :
-       opciones_objetos.append ( round ( random.uniform ( 0, 10 ), 1 ) )
-       i += 1
+
+    for i in range ( NUM_DE_OBJETOS ) :
+        opciones_objetos.append ( round ( _uniform ( 0, 10 ), 1 ) )
 
     return opciones_objetos
 
 #Iniciamos los objetos actuales en una lista con numeros aleatorios.
-INVENTARIO_ACTUAL = crearobjetos ( )
-class inventario ( object ) :
+INVENTARIO_ACTUAL = crearObjetos ( )
+
+class Inventario ( object ) :
     def __init__ ( self ) :
         self.lista_de_objetos = list ( )
         self.Peso_inventario = 0
         for i in range ( len ( INVENTARIO_ACTUAL ) ) :
-            numbin = random.randint ( 0, 1 ) 
-            self.lista_de_objetos.append ( numbin ) 
+            numbin = _randint ( 0, 1 )
+            self.lista_de_objetos.append ( numbin )
         for i in range ( len ( INVENTARIO_ACTUAL ) ) :
             self.Peso_inventario = self.Peso_inventario + ( self.lista_de_objetos [ i ] * INVENTARIO_ACTUAL [ i ] )
 
-def iniciar_inventarios ( ) :
+def iniciarInventarios ( ) :
     lista_inventarios = list ( )
-    i = 0
-    while ( i < POBLACION )  :
-        i += 1
-        new_inv = inventario ( )
-        lista_inventarios.append ( new_inv ) 
+
+    for i in range ( POBLACION - 1 ):
+        lista_inventarios.append ( Inventario ( ) )
+
     return lista_inventarios
 
-def ordenar_inventarios ( lista ) :
-       pass
+def ordenarInventarios ( lista ) :
+    pass
 
-def hacerhijos ( lista ) :
-    Num = len ( lista )  - 1
-    while i < ( len ( lista ) ) :
-        i += 2
+def hacerHijos ( lista ) :
+    for i in range ( 0, 2, len ( lista ) ) :
         invuno = lista [ i ]
-        invdos = lista [ i * 1 ]
-        corteuno = random.randint ( 1, 15 ) 
-        cortedos = random.randint ( 1, 15 ) 
+        invdos = lista [ i * 1 ] # No se que es lo que hiciste aqui
+        corteuno = _randint ( 1, 15 )
+        cortedos = _randint ( 1, 15 )
+
     return lista
 
 def mochila ( ) :
-    lista = iniciar_inventarios ( )
+    lista = iniciarInventarios ( )
 
-print ( 'Ingresa el numero total de Inventarios para tu mochila (POBLACION MI CUATE ) ')
-POBLACION = int ( input ( ) )
-print ( 'Ingresa el porcentaje de mutacion')
-p_muta = input ( )
-print ( 'Numero de generaciones')
-n_generacion = input ( )
-print ( 'El peso maximo de los objetos es: ', MAXIMO ) 
-print ( 'Los objetos creados son: ', INVENTARIO_ACTUAL ) 
-n_lista = iniciar_inventarios ( )
+POBLACION = int ( input ( 'Ingresa el numero total de inventarios posibles a escojer:\n>> ' ) )
+
+p_muta = input ( 'Ingresa el porcentaje de mutacion:\n>> ' )
+n_generacion = input ( 'Numero de generaciones:\n>> ' )
+
+print ( f'El peso maximo de los objetos es: { MAXIMO }' )
+print ( f'Los objetos creados son: { INVENTARIO_ACTUAL }' )
+
+n_lista = iniciarInventarios ( )
+
 for i in range ( len ( n_lista ) ) :
-    print ( 'Lista numero: ', i + 1, ' ', n_lista[i].lista_de_objetos,
-          '\nPESO TOAL: ', n_lista[i].Peso_inventario ) 
+    print ( f'Lista numero: { i + 1 } -- { n_lista [ i ].lista_de_objetos }' )
+    print ( 'PESO TOTAL: %.2f' % n_lista[ i ].Peso_inventario )
