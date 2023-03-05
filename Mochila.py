@@ -42,7 +42,7 @@ def ordenarInventarios ( lista ) :
 def hacerHijos ( lista ) :
     for i in range ( 0, 2, len ( lista ) ) :
         invuno = lista [ i ]
-        invdos = lista [ i * 1 ] # No se que es lo que hiciste aqui
+        invdos = lista [ i * 1 ]
         corteuno = _randint ( 1, 15 )
         cortedos = _randint ( 1, 15 )
 
